@@ -22,10 +22,8 @@
 
 ## 🎮 입출력 소자
 
-| 구분 | 소자 |
-|------|------|
-| 입력 | System Clock, Reset, 스위치 3개, 버튼 4개 |
-| 출력 | FND Display (`fnd_digit[3:0]`, `fnd_data[7:0]`) |
+<img width="1199" height="669" alt="image" src="https://github.com/user-attachments/assets/9637d909-26ce-4aec-ac99-40c91e35f503" />
+
 
 ### Switch
 
@@ -106,13 +104,11 @@
 
 ### `stopwatch_control_unit`
 
-Stopwatch의 상태를 결정하는 **FSM (Moore Machine)**
+Stopwatch의 상태를 결정하는 모듈
 
-| 상태 | o_run_stop | o_clear | 전이 조건 |
-|------|:----------:|:-------:|---------|
-| `STOP` | 0 | 0 | `i_run_stop=1` → RUN / `i_clear=1` → CLEAR |
-| `RUN` | 1 | 0 | `i_run_stop=1` → STOP (Clear 동작 안 함) |
-| `CLEAR` | 0 | 1 | `i_run_stop=1` → RUN |
+**FSM (Moore Machine)**
+
+<img width="2015" height="800" alt="image" src="https://github.com/user-attachments/assets/298ac34e-3472-426b-8e5b-1c50226edb34" />
 
 > Default State: **STOP**
 
@@ -120,28 +116,22 @@ Stopwatch의 상태를 결정하는 **FSM (Moore Machine)**
 
 ### `watch_control_unit`
 
-Watch의 시간 수정(up/down) 모드를 결정하는 **FSM (Moore Machine)**
+Watch의 시간 수정(up/down) 모드를 결정하는 모듈 
 
-| 상태 | o_up | o_down | 전이 조건 |
-|------|:----:|:------:|---------|
-| `NORMAL` | 0 | 0 | `i_up=1` → UP / `i_down=1` → DOWN |
-| `UP` | 1 | 0 | `i_up=0` → NORMAL (버튼 누르면 1clk UP, 다음 clk NORMAL) |
-| `DOWN` | 0 | 1 | `i_down=0` → NORMAL |
+**FSM (Moore Machine)**
 
-> Default State: **NORMAL**
+<img width="1837" height="944" alt="image" src="https://github.com/user-attachments/assets/a6e75b48-8e0a-435f-8763-773224887815" />
 
 ---
 
 ### `watch_modify_sel`
 
-Watch 시간을 수정할 FND 자리를 결정하는 **FSM (Moore Machine)**
+Watch 시간을 수정할 FND 자리를 결정하는 모듈
 
-| 상태 | sel_mod_btn | 수정 대상 | 전이 조건 |
-|------|:-----------:|---------|---------|
-| `LEFT` | 1 | hour, sec | `i_btn_r=1` → RIGHT |
-| `RIGHT` | 0 | min, msec | `i_btn_l=1` → LEFT |
+**FSM (Moore Machine)**
 
-> Default State: **LEFT**
+<img width="1931" height="798" alt="image" src="https://github.com/user-attachments/assets/d0b8c9e1-a494-448c-bfe6-38b9c56ad446" />
+
 
 ---
 
@@ -197,14 +187,14 @@ Stopwatch 카운터 모듈 — Up/Down Count 및 Clear 지원
 
 ## 📊 시뮬레이션 결과
 
-### Watch Mode Change Simulation
+### 1.Watch Mode Change Simulation
 
 - s.ms 모드, `modify_sel = LEFT` → up 신호 발생 시 **sec 값 증가**
 - h.m 모드, `modify_sel = LEFT` → up 신호 발생 시 **hour 값 증가**
 - `modify_sel = RIGHT` → up 신호 발생 시 **min 값 증가**
 - msec 100번(0~99) count 후 sec 값 증가 → **tick 정상 동작 확인**
 
-### Stopwatch Mode Change Simulation
+### 2.Stopwatch Mode Change Simulation
 
 - RUN (s.ms / stopwatch / up count) → 시간 증가
 - STOP → 시간 멈춤
@@ -213,7 +203,7 @@ Stopwatch 카운터 모듈 — Up/Down Count 및 Clear 지원
 - Down count → 시간 감소
 - RUN 상태에서 Clear → **동작하지 않음 확인**
 
-### Button Debounce Simulation
+### 3.Button Debounce Simulation
 
 - 버튼 입력 800kHz 이상 유지 → `o_btn` 1 tick 출력
 - 버튼 입력이 길게 들어오더라도 800kHz 지점에서 신호 **한 번만** 발생
