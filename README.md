@@ -76,17 +76,7 @@
 
 ### Top Module (`top_stopwatch_watch`)
 
-버튼 4개와 스위치 3개를 입력받아 FND에 표시될 데이터를 출력하는 최상위 모듈
-
-| 모듈명 | Instance | 역할 |
-|--------|----------|------|
-| `btn_debounce` | U_BD_CLEAR / U_BD_RUNSTOP / U_BD_UP / U_BD_DOWN | 버튼 입력을 1clk 신호로 변환 |
-| `stopwatch_control_unit` | U_SW_CONTROL_UNIT | Stopwatch 상태 결정 FSM |
-| `watch_control_unit` | U_W_CONTROL_UNIT | Watch 상태 결정 FSM |
-| `stopwatch_datapath` | U_STOPWATCH_PATH | Stopwatch 상태에 따라 FND 출력값 결정 |
-| `watch_datapath` | U_WATCH_PATH | Watch 상태에 따라 FND 출력값 결정 |
-| `mux_2x1_w_sw_sel` | U_Mux_W_SW_SEL | Stopwatch / Watch 데이터 중 FND 표시값 선택 |
-| `fnd_controller` | U_FND_CNTL | 입력 데이터를 FND에 표시할 수 있는 형태로 변환 |
+<img width="2794" height="1579" alt="image" src="https://github.com/user-attachments/assets/cd0448c7-d5b9-4ce3-a296-c5ed4ebd5351" />
 
 ---
 
@@ -108,9 +98,7 @@ Stopwatch의 상태를 결정하는 모듈
 
 **FSM (Moore Machine)**
 
-<img width="2015" height="800" alt="image" src="https://github.com/user-attachments/assets/298ac34e-3472-426b-8e5b-1c50226edb34" />
-
-> Default State: **STOP**
+<img width="900" height="400" alt="image" src="https://github.com/user-attachments/assets/298ac34e-3472-426b-8e5b-1c50226edb34" />
 
 ---
 
@@ -131,7 +119,6 @@ Watch 시간을 수정할 FND 자리를 결정하는 모듈
 **FSM (Moore Machine)**
 
 <img width="1931" height="798" alt="image" src="https://github.com/user-attachments/assets/d0b8c9e1-a494-448c-bfe6-38b9c56ad446" />
-
 
 ---
 
